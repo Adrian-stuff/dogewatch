@@ -1,7 +1,10 @@
 import React from "react";
-
-const RoomPage = () => {
+import { PageComponent } from "../../common/types/PageComponent";
+interface RoomPageProps {}
+export const RoomPage: PageComponent<RoomPageProps> = () => {
   return <div>room</div>;
 };
+
+RoomPage.requireAuth = true;
 
 export default RoomPage;

@@ -10,4 +10,9 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
+  callbacks: {
+    async jwt({ token }) {
+      return token;
+    },
+  },
 });
