@@ -1,11 +1,12 @@
 import { Button, Container, Modal } from "@mantine/core";
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import React, { useEffect } from "react";
 
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import HomePage from "../home/HomePage";
+import { getToken } from "next-auth/jwt";
 
 const LoginPage: NextPage = () => {
   const { data: session } = useSession();
@@ -30,9 +31,9 @@ const LoginPage: NextPage = () => {
             }}
             withCloseButton={false}
           >
-            <Button onClick={() => signIn("github")}>
+            <Button onClick={() => signIn("google")}>
               {" "}
-              Sign in with github
+              Sign in with google
             </Button>
           </Modal>
         )}
