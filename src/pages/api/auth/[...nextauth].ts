@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import { isServer } from "../../../common/utils/isServer";
+import { useTokenStore } from "../../../modules/auth/useTokenStore";
 
 const GOOGLE_AUTHORIZATION_URL =
   "https://accounts.google.com/o/oauth2/v2/auth?" +
@@ -20,7 +22,7 @@ async function refreshAccessToken(token: any) {
     const url =
       "https://oauth2.googleapis.com/token?" +
       new URLSearchParams({
-        client_id: process.env.GOOGLE_CLIENTID as string,
+        client_id: process.env.GOOGLE_CLIENT_ID as string,
         client_secret: process.env.GOOGLE_SECRET as string,
         grant_type: "refresh_token",
         refresh_token: token.refreshToken,
@@ -62,7 +64,7 @@ export default NextAuth({
     //   clientSecret: process.env.GITHUB_SECRET,
     // }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENTID as string,
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,
       authorization: GOOGLE_AUTHORIZATION_URL,
     }),
@@ -89,8 +91,8 @@ export default NextAuth({
     async session({ session, token }) {
       session.user = token.user;
       session.accessToken = token.accessToken;
+      session.refreshToken = token.refreshToken;
       session.error = token.error;
-
       return session;
     },
   },

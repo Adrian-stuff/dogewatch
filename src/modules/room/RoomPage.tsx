@@ -15,22 +15,15 @@ export const RoomPage: PageComponent<RoomPageProps> = ({ id }) => {
   );
 };
 
-RoomPage.requireAuth = true;
-
-// RoomPage.getInitialProps = async ({ queryRoomPage.getInitialProps = async ({ query }) => {
-//   const id = typeof query.id === "string" ? query.id : "";
-//   return { id: id };
-// }; }) => {
-//   const id = typeof query.id === "string" ? query.id : "";
-//   return { id: id };
-// };
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  query,
-}) => {
-  const token = await getToken({ req, raw: true });
-  console.log("here");
-  console.log(token);
+RoomPage.ws = true;
+RoomPage.getInitialProps = async ({ query }) => {
   const id = typeof query.id === "string" ? query.id : "";
-  return { props: { token: token, id: id } };
+  return { id };
 };
+// export const getServerSideProps: GetServerSideProps = async ({
+//   req,
+//   query,
+// }) => {
+//   const id = typeof query.id === "string" ? query.id : "";
+//   return { props: { id: id } };
+// };
