@@ -7,7 +7,7 @@ interface WaitForWsAndAuthProps {}
 export const WaitForWsAndAuth: React.FC<WaitForWsAndAuthProps> = ({
   children,
 }) => {
-  const { conn } = useContext(SocketContext);
+  const conn = useContext(SocketContext);
 
   if (!useVerifyLoggedIn()) {
     return null;

@@ -48,7 +48,6 @@ const Home: PageComponent<HomeProps> = () => {
   );
 };
 
-Home.ws = true;
 // export const getServerSideProps: GetServerSideProps = async({req,res}) =>{
 //   return {
 //     props:{}
