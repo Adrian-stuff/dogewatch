@@ -7,6 +7,7 @@ export interface PlayerData {
   time?: number;
 }
 export interface ServerToClientEvents {
+  ping: () => void;
   // PLAYER
   [ReceivedPlayerEvents.VIDEOID]: (videoID: string) => void;
   [ReceivedPlayerEvents.PLAYERSTATUS]: (status: number) => void;
@@ -34,6 +35,7 @@ interface CreateRoomType {
 }
 
 export interface ClientToServerEvents {
+  ping: () => void;
   // PLAYER
   [SendPlayerEvents.VIDEOID]: (videoID: string) => void;
   [SendPlayerEvents.PLAYERSTATUS]: (status: number) => void;

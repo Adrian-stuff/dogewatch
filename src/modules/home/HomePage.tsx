@@ -33,18 +33,18 @@ const Home: PageComponent<HomeProps> = () => {
   });
 
   return (
-    <WaitForWsAndAuth>
-      <Container>
-        <Button onClick={() => createRoomModal()}>CreateRoom</Button>
-        <Button onClick={() => joinRoomModal()}>JoinRoom</Button>
-        {session && (
-          <>
-            <Text>{session?.user?.name}</Text>
-            {session.user?.image && <Image src={session?.user?.image}></Image>}
-          </>
-        )}
-      </Container>
-    </WaitForWsAndAuth>
+    // <WaitForWsAndAuth>
+    <Container>
+      <Button onClick={() => createRoomModal()}>CreateRoom</Button>
+      <Button onClick={() => joinRoomModal()}>JoinRoom</Button>
+      {session && (
+        <>
+          <Text>{session?.user?.name}</Text>
+          {session.user?.image && <Image src={session?.user?.image}></Image>}
+        </>
+      )}
+    </Container>
+    //</WaitForWsAndAuth>
   );
 };
 

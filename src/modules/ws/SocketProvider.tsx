@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import io, { Socket } from "socket.io-client";
 import {
   ClientToServerEvents,
@@ -16,7 +16,7 @@ type V = Socket<ServerToClientEvents, ClientToServerEvents> | null;
 export const getSocket = () => {
   const { accessToken, refreshToken } = useTokenStore.getState();
   if (accessToken && refreshToken) {
-    return io(process.env.SOCKET_URL as string).emit("authenticate", {
+    return io("http://localhost:8000/").emit("authenticate", {
       token: accessToken,
     });
   }
@@ -29,11 +29,16 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
   shouldConnect,
   children,
 }) => {
-  const socket = useMemo(() => {
-    if (shouldConnect) return getSocket();
-    else return null;
+  const [conn, setConn] = useState<V>(null);
+
+  useEffect(() => {
+    if (!conn && shouldConnect) {
+      setConn(getSocket());
+    }
   }, []);
   return (
-    <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
+    <SocketContext.Provider value={useMemo(() => conn, [conn])}>
+      {children}
+    </SocketContext.Provider>
   );
 };
